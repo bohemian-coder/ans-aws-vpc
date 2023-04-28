@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Import VPC variables
+      ansible.builtin.include_vars:
+        dir: vars/all
+        file: vpc_setup
+    - name: Create vprofile VPC
+      ec2_vpc_net:
+        name: "{{ vpc_name }}"
+        cidr_block: "{{ vpcCidr }}"
+        region: "{{ region }}"
+        dns_support: true
+        dns_hostnames: true
+        tenancy: default
+        state: "{{ state }}"
+      register: vpcout

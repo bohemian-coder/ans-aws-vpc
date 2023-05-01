@@ -123,10 +123,12 @@
         wait: true
         region: "{{ region }}"
         if_exist_do_not_create: true
+        tags:
+          Name: VprofileNATGW
       register: NATGW_out
 
-    - debug:
-        var: NATGW_out
+    # - debug:
+    #     var: NATGW_out
 
     - name: Set up private subnet route table
       ec2_vpc_route_table:

@@ -19,7 +19,7 @@
     - name: Save private key into bastion_key.pem
       copy:
         content: "{{ keyout.key.private_key }}"
-        dest: "./bastion_key.pem"
+        dest: "./bastion-key.pem"
         mode: 0600
       when: keyout.changed
 

@@ -130,7 +130,7 @@
 
     - name: Set up private subnet route table
       ec2_vpc_route_table:
-        vpc_id: "{{ vpcout.vpcout.vpc.id }}"
+        vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
         tags:
           Name: VProfile-privRT

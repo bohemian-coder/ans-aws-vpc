@@ -21,7 +21,7 @@
         content: "{{ key_out.key.private_key }}"
         dest: "./bastion_key.pem"
         mode: 0600
-      when: key_out.changed
+      when: keyout.changed
 
     - name: Create sec group for bastion host
       ec2_group:

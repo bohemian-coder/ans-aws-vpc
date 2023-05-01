@@ -128,17 +128,18 @@
     - debug:
         var: NATGW_out
 
-    # - name: Set up private subnet route table
-    #   ec2_vpc_route_table:
-    #     vpc_id: "{{ vpcout.vpcout.vpc.id }}"
-    #     region: "{{ region }}"
-    #     tags:
-    #       Name: VProfile-privRT
-    #     subnets:
-    #       - "{{ pubsub1_out.subnet.id }}"
-    #       - "{{ pubsub2_out.subnet.id }}"
-    #       - "{{ pubsub3_out.subnet.id }}"
-    #     routes:
-    #       - dest: 0.0.0.0/0
-    #         instance_id: "{{ NATGW_out.instance_id }}"
-    #   register: NATGWpriv_out
+    - name: Set up private subnet route table
+      ec2_vpc_route_table:
+        vpc_id: "{{ vpcout.vpcout.vpc.id }}"
+        region: "{{ region }}"
+        tags:
+          Name: VProfile-privRT
+        subnets:
+          - "{{ privsub1_out.subnet.id }}"
+          - "{{ privsub2_out.subnet.id }}"
+          - "{{ privsub3_out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            instance_id: "{{ NATGW_out.nat_gateway_id }}"
+      register: privRT_out
+      

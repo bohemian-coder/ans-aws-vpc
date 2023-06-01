@@ -2,29 +2,29 @@
 - name: Setup project bastion host
   hosts: localhost
   connection: local
-  gather_facts: no
-  tasks: 
+  gather_facts: false
+  tasks:
     - name: Import VPC setup variable
-      include_vars: vars/bastion_setup
+      ansible.builtin.include_vars: vars/bastion_setup
 
     - name: Import VPC output variables
-      include_vars: vars/output_vars
+      ansible.builtin.include_vars: vars/output_vars
 
-    - name: create a new ec2 key pair
-      ec2_key:
+    - name: Create a new ec2 key pair
+      amazon.aws.ec2_key:
         name: pro-key
         region: "{{ region }}"
       register: keyout
 
     - name: Save private key into bastion_key.pem
-      copy:
+      ansible.builtin.copy:
         content: "{{ keyout.key.private_key }}"
         dest: "./bastion-key.pem"
         mode: "0600"
       when: keyout.changed
 
     - name: Create security group for bastion host
-      ec2_group:
+      amazon.aws.ec2_security_group:
         name: Bastion-host-SG
         description: Allow port 22 from everywhere and all ports within SG
         region: "{{ region }}"
@@ -34,10 +34,10 @@
             from_port: 22
             to_port: 22
             cidr_ip: "{{ MYIP }}"
-      register: BastionSG_out
+      register: bastionsg_out
 
     - name: Creating Bastion host
-      ec2:
+      amazon.aws.ec2_instance:
         key_name: pro-key
         region: "{{ region }}"
         instance_type: t2.micro
@@ -53,6 +53,6 @@
           Name: "Bastion Host"
           Project: Ans_AWS_vpc
           Owner: Maybelle
-        group_id: "{{ BastionSG_out.group_id }}"
+        group_id: "{{ bastionsg_out.group_id }}"
         vpc_subnet_id: "{{ pubsub1id }}"
-      register: bastionHost_out
+      register: bastionhost_out

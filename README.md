@@ -1,7 +1,7 @@
 # ansible-aws-vpc -> A Quick HowTo
 
-Setup a VPC on AWS cloud using Ansible, with a simple java application stack
+Setup a VPC on AWS cloud using Ansible, and a simple java application stack (Infrastructure only)
 
-Note: This is a sample infrastructure ONLY, no java application is is actually deployed in this setup.
+Note: This is a sample setup of the infrastructure ONLY, no java application  is actually deployed in this setup.
 
 VPC spans 3 availability zones in region US-EAST-1

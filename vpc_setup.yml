@@ -6,7 +6,7 @@
     - name: Import VPC variables
       include_vars: vars/vpc_setup
 
-    - name: Create vprofile VPC
+    - name: Create project VPC
       ec2_vpc_net:
         name: "{{ vpc_name }}"
         cidr_block: "{{ vpcCidr }}"
@@ -29,7 +29,7 @@
         cidr: "{{ PubSub1Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-pubsub1
+          Name: aav-pubsub1
       register: pubsub1_out
 
     - name: Create public subnet 2 in zone 2
@@ -41,7 +41,7 @@
         cidr: "{{ PubSub2Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-pubsub2
+          Name: aav-pubsub2
       register: pubsub2_out
 
     - name: Create public subnet 3 in zone 3
@@ -53,7 +53,7 @@
         cidr: "{{ PubSub3Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-pubsub3
+          Name: aav-pubsub3
       register: pubsub3_out
 
     - name: Create private subnet 1 in zone 1
@@ -65,7 +65,7 @@
         cidr: "{{ PrivSub1Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-privsub1
+          Name: aav-privsub1
       register: privsub1_out
 
     - name: Create private subnet 2 in zone 2
@@ -77,7 +77,7 @@
         cidr: "{{ PrivSub2Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-privsub2
+          Name: aav-privsub2
       register: privsub2_out
 
     - name: Create private subnet 3 in zone 3
@@ -89,7 +89,7 @@
         cidr: "{{ PrivSub3Cidr }}"
         map_public: true
         resource_tags:
-          Name: vprofile-privsub3
+          Name: aav-privsub3
       register: privsub3_out
 
     - name: Internet Gateway setup
@@ -98,7 +98,7 @@
         region: "{{ region }}"
         state: "{{ state }}"
         resource_tags:
-          Name: vprofile-IGW
+          Name: aav-IGW
       register: igw_out
 
     - name: Set up public subnet route table
@@ -106,7 +106,7 @@
         vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
         resource_tags:
-          Name: VProfile-pubRT
+          Name: aav-pubRT
         subnets:
           - "{{ pubsub1_out.subnet.id }}"
           - "{{ pubsub2_out.subnet.id }}"
@@ -133,7 +133,7 @@
         vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
         tags:
-          Name: VProfile-privRT
+          Name: aav-privRT
         subnets:
           - "{{ privsub1_out.subnet.id }}"
           - "{{ privsub2_out.subnet.id }}"

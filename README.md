@@ -1,6 +1,6 @@
 # ansible-aws-vpc -> A Quick HowTo
 
-Setup a VPC on AWS cloud using Ansible, and a simple java application stack (Infrastructure only)
+Setup a VPC on AWS cloud using Ansible, and a simple java application stack (Infrastructure only - Three tier architecture)
 
 Note: This is a sample setup of the infrastructure ONLY, no java application  is actually deployed in this setup.
 
